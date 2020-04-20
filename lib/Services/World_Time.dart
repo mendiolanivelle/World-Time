@@ -10,8 +10,13 @@ class WorldTime {
 
   WorldTime({this.location,this.flag,this.url});
   
+  
+    
+  
 
   Future<void> getTime() async  
+  {
+    try 
   {
     Response response = await get('http://worldtimeapi.org/api/timezone/$url');
     Map data = jsonDecode(response.body);
@@ -22,7 +27,15 @@ class WorldTime {
     DateTime currentTime = DateTime.parse(datetime);
     currentTime = currentTime.add(Duration(hours: int.parse(offset)));
 
-    time = currentTime.toString();
+    time = currentTime.toString().substring(0,16);
+
+    } 
+  catch (e) 
+  {
+    time = 'error in searching for time using online search';
   }
+  }
+
+  
   
 }

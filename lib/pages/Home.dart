@@ -23,23 +23,45 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SafeArea
       (
-        child: Column
-        (
-          children: <Widget>
-          [
-            FlatButton.icon
-            (
-              onPressed: () 
-              {
-                Navigator.pushNamed(context, '/location');
-              }, 
-              icon: Icon(Icons.edit_location), 
-              label: Text('edit location')
-            ),
-            Text('$time'),
-            Text('$location'),
-            Text('$flag'),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+          child: Column
+          (
+            children: <Widget>
+            [
+              FlatButton.icon
+              (
+                onPressed: () 
+                {
+                  Navigator.pushNamed(context, '/location');
+                }, 
+                icon: Icon(Icons.edit_location), 
+                label: Text('edit location')
+              ),
+              SizedBox(height: 20,),
+              Row
+              (
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>
+                [
+                  Text
+                  (
+                    data['location'],
+                    style: TextStyle
+                    (
+                      fontSize: 21,
+                      letterSpacing: 2
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 20),
+              Text(data['time'],style: TextStyle
+              (
+                fontSize: 55
+              ),)
+            ],
+          ),
         ),
       ),
 

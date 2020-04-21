@@ -15,10 +15,9 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
 
-    data = ModalRoute.of(context).settings.arguments;
+    data = data.isNotEmpty ? data : ModalRoute.of(context).settings.arguments;
     String time = data['time'];
     String location = data['location'];
-    String flag = data['flag'];
     String background = data['isDayTime'] ? 'day.jpg' : 'night.jpg';
     Color bg = data['isDayTime'] ? Colors.lightBlue : Colors.indigo;
 
@@ -43,9 +42,18 @@ class _HomeState extends State<Home> {
               [
                 FlatButton.icon
                 (
-                  onPressed: () 
+                  onPressed: () async
                   {
-                    Navigator.pushNamed(context, '/location');
+                    dynamic result = await Navigator.pushNamed(context, '/location');
+                    setState(() {
+                      data = 
+                      {
+                        'time': result['time'],
+                        'location': result['location'],
+                        'flag': result['flag'],
+                        'isDayTime': data['isDayTime'],
+                      };
+                    });
                   }, 
                   icon: Icon(Icons.edit_location,color: Colors.lightBlue,), 
                   label: Text('edit location',style: TextStyle(color: Colors.lightBlue),)
